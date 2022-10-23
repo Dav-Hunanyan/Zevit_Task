@@ -1,0 +1,65 @@
+﻿@page
+@model Address_Book.Pages.Contacts.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Contacts</h1>
+
+    <a asp-page="Contacts/Create">Create New</a>
+</p>
+
+<form asp-controller="Contacts" asp-action="Index" method="get">
+    <p>
+         <select asp-for="ContactName" asp-items="Model.FullName">
+            <option value="">All</option>
+        </select>
+        Name: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact[0].FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact[0].Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact[0].Address)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Contact)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    <a asp-page="Contacts/Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="Contacts/Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="Contacts/Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
